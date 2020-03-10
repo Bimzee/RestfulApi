@@ -16,6 +16,7 @@ using NJsonSchema;
 using Newtonsoft.Json;
 using LandonApi.Filters;
 using LandonApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LandonApi
 {
@@ -28,9 +29,16 @@ namespace LandonApi
 
         public IConfiguration Configuration { get; }
 
+        // TODO: Swap out for real db in production
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //utilizing InMemory DB
+            services.AddDbContext<HotelApiDbContext>(options =>
+            {
+                options.UseInMemoryDatabase("landondb");
+            });
+
             services
                 .AddMvc(options =>
                 {
