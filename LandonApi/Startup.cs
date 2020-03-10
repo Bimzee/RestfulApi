@@ -49,6 +49,15 @@ namespace LandonApi
                 options.ReportApiVersions = true;
                 options.ApiVersionSelector = new CurrentImplementationApiVersionSelector(options);
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigin", policy =>
+                 {
+                     policy.AllowAnyOrigin(); //Should be used for Dev purpose only
+                                              //policy.WithOrigins("http://example.com");
+                 });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +80,7 @@ namespace LandonApi
                 app.UseHsts();
             }
 
+            app.UseCors("AllowAllOrigin"); //use cors policy name in the pipeline
             //app.UseHttpsRedirection(); // implemented filter to reject http 
             app.UseMvc();
         }
