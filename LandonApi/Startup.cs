@@ -17,6 +17,8 @@ using Newtonsoft.Json;
 using LandonApi.Filters;
 using LandonApi.Models;
 using Microsoft.EntityFrameworkCore;
+using LandonApi.IServices;
+using LandonApi.Services;
 
 namespace LandonApi
 {
@@ -38,6 +40,8 @@ namespace LandonApi
             {
                 options.UseInMemoryDatabase("landondb");
             });
+
+            services.AddScoped<IRoomService, RoomServices>();
 
             services
                 .AddMvc(options =>
