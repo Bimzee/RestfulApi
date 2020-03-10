@@ -15,6 +15,7 @@ using NSwag.AspNetCore;
 using NJsonSchema;
 using Newtonsoft.Json;
 using LandonApi.Filters;
+using LandonApi.Models;
 
 namespace LandonApi
 {
@@ -58,6 +59,8 @@ namespace LandonApi
                                               //policy.WithOrigins("http://example.com");
                  });
             });
+
+            services.Configure<HotelInfo>(Configuration.GetSection("Info"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
