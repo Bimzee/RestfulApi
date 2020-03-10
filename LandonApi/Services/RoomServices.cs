@@ -1,4 +1,5 @@
-﻿using LandonApi.IServices;
+﻿using AutoMapper;
+using LandonApi.IServices;
 using LandonApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,10 +12,12 @@ namespace LandonApi.Services
     public class RoomServices : IRoomService
     {
         private readonly HotelApiDbContext _context;
+        private IMapper _mapper;
 
-        public RoomServices(HotelApiDbContext context)
+        public RoomServices(HotelApiDbContext context, IMapper mapper)
         {
             this._context = context;
+            this._mapper = mapper;
         }
         public async Task<Room> GetRoomasync(Guid roomId)
         {
@@ -24,12 +27,14 @@ namespace LandonApi.Services
             {
                 return null;
             }
-            return new Room
-            {
-                Href =  null,//Url.Link(nameof(GetRoomById), new { roomId = entity.Id }),
-                Name = entity.Name,
-                Rate = entity.Rate / 100.0m
-            };
+
+            return _mapper.Map<Room>(entity);
+            //return new Room
+            //{
+            //    Href =  null,//Url.Link(nameof(GetRoomById), new { roomId = entity.Id }),
+            //    Name = entity.Name,
+            //    Rate = entity.Rate / 100.0m
+            //};
 
         }
     }

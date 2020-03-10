@@ -19,6 +19,8 @@ using LandonApi.Models;
 using Microsoft.EntityFrameworkCore;
 using LandonApi.IServices;
 using LandonApi.Services;
+using AutoMapper;
+using LandonApi.Infrastructure;
 
 namespace LandonApi
 {
@@ -73,6 +75,8 @@ namespace LandonApi
             });
 
             services.Configure<HotelInfo>(Configuration.GetSection("Info"));
+
+            services.AddAutoMapper(options => options.AddProfile<MappingProfile>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
